@@ -1,0 +1,154 @@
+.container{
+    width: 80%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.form{
+    width: 40%;
+    background: #38394E;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 70px;
+}
+.form h1{
+    color:#c7c7c7;
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    width: 100%;
+}
+.form form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+.form button{
+    font-size: 40px;
+    background-color: #C035A2;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 88%;
+}
+.form button:hover{
+    background-color: #ac258f;
+}
+.form input{
+    font-size: 30px;
+    background-color: #c7c7c7;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 88%;
+}
+.form input:focus{
+    border: none;
+    outline: none;
+}
+.imgDiv{
+    background-color: #fff;
+    width: 45%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    border: none;
+}
+.img{
+    width:  85%;
+    height: 100%;
+}
+.form p{
+    color: red;
+    font-size: 15px;
+}
+@media (max-width:1130px  )and (min-width:657px){
+    .container{
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+    .form{
+        gap: 10px;
+        background-color: #1E1E30;
+    }
+    .imgDiv{
+        background-color:#1E1E30;
+    }
+    .form h1{
+        font-size: 30px;
+    }
+    .form input,.form button{
+        font-size: 25px;
+        width: 80%;
+    }
+    
+}
+@media (max-width:657px ){
+    .container{
+        flex-direction: column-reverse;
+        gap: 10px;
+        height: auto;
+    }
+    .form{
+        gap: 10px;
+        background-color: #1E1E30;
+    }
+    .imgDiv{
+        background-color:#1E1E30;
+        width: 100%;
+    }
+    .form{
+        width: 100%;
+    }
+    .form h1{
+        font-size: 30px;
+    }
+    .form input,.form button{
+        font-size: 25px;
+        width: 80%;
+    }
+    .form p{
+        width: 80%;
+        text-align: center;
+    }
+}
+@keyframes moveBox {
+    0% {
+        left: -100px; 
+        opacity: 0; 
+      }
+      33% {
+        left: calc(50% - 50px);
+        opacity: 1;
+      }
+      66% {
+        left: calc(50% - 50px);
+        opacity: 1; 
+      }
+      100% {
+        left: 100%; 
+        opacity: 0; 
+      }
+  }
+.alert{
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+    width: 300px;
+    transform: translateY(-50%);
+    opacity: 0; 
+    animation: moveBox 2.3s linear forwards;
+    padding: 30px;
+    font-size: 25px;
+}
