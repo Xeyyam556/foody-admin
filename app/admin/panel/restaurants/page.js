@@ -6,7 +6,7 @@ import editImg from "../image/Vector (11).png";
 import rmvImg from "../image/Vector (12).png";
 import Image from 'next/image';
 import axios from 'axios';
-
+import spinGif from '../image/spin2.gif'
 export default function Restaurants() {
 
     const [showRestaurants, setShowRestaurants] = useState(false);
@@ -15,7 +15,7 @@ export default function Restaurants() {
     const [selectedValue, setSelectedValue] = useState('');
     const [restuarantss, setRestaurantss] = useState([]);
     const [deleteId, setDeleteId] = useState("");
-
+    const [spin,setSpin]=useState(true)
     const [showEdit, setShowEdit] = useState(false);
     const [editRestaurantId, setEditRestaurantId] = useState("");
     const [editRestaurant, setEditRestaurant] = useState({});
@@ -33,6 +33,7 @@ export default function Restaurants() {
         const response = await axios.get(`/api/restuarants`);
         const allRestaurants = response.data.result.data;
         // Filter restaurants based on selected category
+        setSpin(false)
         if (categoryId) {
             setRestaurantss(allRestaurants.filter(restaurant => restaurant.category_id === categoryId));
         } else {
@@ -56,6 +57,7 @@ export default function Restaurants() {
     const fetchEdit = async (id) => {
         const response = await axios.get(`/api/restuarants/${id}`);
         setEditRestaurant(response.data.result.data);
+        setSpin(false)
     };
 
     useEffect(() => {
@@ -109,6 +111,7 @@ export default function Restaurants() {
     const fetchCategory = async () => {
         const response = await axios.get("/api/category");
         setGetCategory(response.data.result.data);
+        setSpin(false)
     };
 
     useEffect(() => {
@@ -157,6 +160,11 @@ export default function Restaurants() {
 
     return (
         <>
+          {spin && (
+                <div className={styles.spinnerContainer} >
+                    <Image  className={styles.spinner} src={spinGif} alt="Loading..." width={400} height={400} />
+                </div>
+            )}
             {showEdit && (
                 <>
                     <div className={styles.backfonEdit} onClick={close}></div>
@@ -288,8 +296,8 @@ export default function Restaurants() {
                                 <Image src={restaurant.img_url} height={50} width={50} alt="img" />
                             </div>
                             <div className={styles.info}>
-                                <h1>{restaurant.name}</h1>
-                                <h2>{restaurant.cuisine}</h2>
+                                <h1 className={styles.name}>{restaurant.name}</h1>
+                                <h2 className={styles.name} >{restaurant.cuisine}</h2>
                             </div>
                             <div className={styles.otherImg}>
                                 <button onClick={() => showRmvPage(restaurant.id)}>

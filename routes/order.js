@@ -75,11 +75,11 @@ export async function handlerAddOrderPOST(req, res, col) {
 
     const { basket_id, delivery_address, payment_method, contact } = req.body;
 
-    if (payment_method == 0 || payment_method == 1) {
-      res
-        .status(404)
-        .json({ error: "Invalid payment method.Please choose 0 or 1!" });
-    }
+    // if (payment_method != 0 || payment_method != 1) {
+    //   res
+    //     .status(404)
+    //     .json({ error: "Invalid payment method.Please choose 0 or 1!" });
+    // }
 
     const userBasket = await getDataID(ROUTER.CARD, basket_id);
 

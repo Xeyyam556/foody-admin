@@ -16,6 +16,7 @@ import { useState, useEffect, useRef, use } from "react";
 import fileImg from "./image/Vector (10).png"
 import cloudImg from "./image/Vector (13).png"
 import axios from "axios";
+
 export default function AdminLayout({ children }) {
 
     const [addImg, setAddImg] = useState(null);
@@ -91,10 +92,15 @@ export default function AdminLayout({ children }) {
 
 
     }
+    const cancel=()=>{
+        setIsOpen(false)
+    }
 
 
     const closeModal = () => {
+        setIsOpen(false)
         setShowPage(false)
+        setAddImg("");
     }
 
     const handleImageChange = (e) => {
@@ -117,14 +123,14 @@ export default function AdminLayout({ children }) {
     }
     const toggleMenu = () => {
         setIsOpen(!isOpen);
-        document.body.style.overflow = "hidden"
+        // document.body.style.overflow = "hidden"
 
     };
 
 
     const closeMenu = () => {
         setIsOpen(false)
-        document.body.style.overflow = "auto"
+            // document.body.style.overflow = "auto"
 
     }
     const closeProduct = () => {
@@ -207,11 +213,12 @@ export default function AdminLayout({ children }) {
             <header>
 
                 <div className={styles.headCountainer}>
-                    <div className={styles.hamburger} onClick={(toggleMenu)}>
+                    <div className={styles.hamburger} onClick={toggleMenu}>
                         <div></div>
                         <div></div>
                         <div></div>
                     </div>
+
                     <p className={styles.mLAuto}>Foody<span>.</span></p>
                     <button className={styles.mLAuto} onClick={productPage}>
                         {isMobile ? "+" : "+ ADD PRODUCT"}
@@ -226,7 +233,7 @@ export default function AdminLayout({ children }) {
             </header>
 
             <main >
-                <div className={styles.backfonHam} onClick={close} style={{ display: isOpen ? "block" : "none" }} ></div>
+                <div className={styles.backfonHam} onClick={closeModal} style={{ display: isOpen ? "block" : "none" }} ></div>
 
                 <div className={styles.bodyDiv}>
                     <div className={styles.bodyCountainer}>
@@ -234,27 +241,30 @@ export default function AdminLayout({ children }) {
                             <div className={styles.divCountainer}>
 
 
-                                <ul>
+                                <ul className={styles.ul}>
                                     <li className={pathname === '/admin/panel/dashboard' && styles.activeLink} >
-                                        <Image className={styles.img} src={dashboardImg} alt="admin/panel/dashboard" /><Link href={"./dashboard"} className={styles.link}>Dashboard</Link>
+                                        <Image className={styles.img} src={dashboardImg} alt="admin/panel/dashboard" /><Link onClick={cancel}  href={"./dashboard"} className={styles.link}>Dashboard</Link>
                                     </li>
                                     <li className={pathname === '/admin/panel/product' && styles.activeLink}>
-                                        <Image className={styles.img} src={productImg} alt="admin/panel/product" /><Link href={"./product"} className={styles.link}>Product</Link>
+                                        <Image className={styles.img} src={productImg} alt="admin/panel/product" /><Link onClick={cancel} href={"./product"} className={styles.link}>Product</Link>
                                     </li>
                                     <li className={pathname === '/admin/panel/restaurants' && styles.activeLink}>
-                                        <Image className={styles.img} src={restaurantsImg} alt="admin/panel/restaurants" /><Link href={"./restaurants"} className={styles.link}> Restaurants</Link>
+                                        <Image className={styles.img} src={restaurantsImg} alt="admin/panel/restaurants" /><Link onClick={cancel}  href={"./restaurants"} className={styles.link}> Restaurants</Link>
                                     </li>
                                     <li className={pathname === '/admin/panel/category' && styles.activeLink}>
-                                        <Image className={styles.img} src={categoryImg} alt="admin/panel/category" /><Link href={"./category"} className={styles.link}> Category</Link>
+                                        <Image className={styles.img} src={categoryImg} alt="admin/panel/category" /><Link onClick={cancel}  href={"./category"} className={styles.link}> Category</Link>
                                     </li>
                                     <li className={pathname === '/admin/panel/orders' && styles.activeLink}>
-                                        <Image className={styles.img} src={ordersImg} alt="admin/panel/orders" /><Link href={"./orders"} className={styles.link}> Orders</Link>
+                                        <Image className={styles.img} src={ordersImg} alt="admin/panel/orders" /><Link onClick={cancel}  href={"./orders"} className={styles.link}> Orders</Link>
                                     </li>
-                                    <li className={pathname === '/admin/panel/offer' && styles.activeLink}>
-                                        <Image className={styles.img} src={offerImg} alt="admin/panel/offer" /><Link href={"./offer"} className={styles.link}> Offer</Link>
+                                    <li className={pathname === '/admin/panel/orders-history' && styles.activeLink}>
+                                        <Image className={styles.img} src={ordersImg} alt="admin/panel/orders-history" /><Link onClick={cancel}  href={"./orders-history"} className={styles.link}>History</Link>
+                                    </li>
+                                    <li  onClick={cancel} className={pathname === '/admin/panel/offer' && styles.activeLink}>
+                                        <Image className={styles.img} src={offerImg} alt="admin/panel/offer" /><Link  href={"./offer"} className={styles.link}> Offer</Link>
                                     </li>
                                     <li>
-                                        <Image className={styles.img} src={logoutImg} alt="admin/panel/logout" /> <Link href={"../login"} className={styles.link}> Logout</Link>
+                                        <Image className={styles.img} src={logoutImg} alt="admin/panel/logout" /> <Link href={"/"} className={styles.link}> Logout</Link>
                                     </li>
 
                                 </ul>
@@ -274,26 +284,29 @@ export default function AdminLayout({ children }) {
 
 
                                     <li className={pathname === '/admin/panel/dashboard' && styles.activeLink} >
-                                        <Image className={styles.img} src={dashboardImg} alt="admin/panel/dashboard" /><Link href={"./dashboard"} className={styles.link}>Dashboard</Link>
+                                        <Image className={styles.img} src={dashboardImg} alt="admin/panel/dashboard" /><Link onClick={cancel} href={"./dashboard"} className={styles.link}>Dashboard</Link>
                                     </li>
 
                                     <li className={pathname === '/admin/panel/product' && styles.activeLink}>
-                                        <Image className={styles.img} src={productImg} alt="admin/panel/product" /><Link href={"./product"} className={styles.link}>Product</Link>
+                                        <Image className={styles.img} src={productImg} alt="admin/panel/product" /><Link onClick={cancel} href={"./product"} className={styles.link}>Product</Link>
                                     </li>
                                     <li className={pathname === '/admin/panel/restaurants' && styles.activeLink}>
-                                        <Image className={styles.img} src={restaurantsImg} alt="admin/panel/restaurants" /><Link href={"./restaurants"} className={styles.link}> Restaurants</Link>
+                                        <Image className={styles.img} src={restaurantsImg} alt="admin/panel/restaurants" /><Link onClick={cancel} href={"./restaurants"} className={styles.link}> Restaurants</Link>
                                     </li>
                                     <li className={pathname === '/admin/panel/category' && styles.activeLink}>
-                                        <Image className={styles.img} src={categoryImg} alt="admin/panel/category" /><Link href={"./category"} className={styles.link}> Category</Link>
+                                        <Image className={styles.img} src={categoryImg} alt="admin/panel/category" /><Link onClick={cancel} href={"./category"} className={styles.link}> Category</Link>
                                     </li>
                                     <li className={pathname === '/admin/panel/orders' && styles.activeLink}>
-                                        <Image className={styles.img} src={ordersImg} alt="admin/panel/orders" /><Link href={"./orders"} className={styles.link}> Orders</Link>
+                                        <Image className={styles.img} src={ordersImg} alt="admin/panel/orders" /><Link onClick={cancel} href={"./orders"} className={styles.link}> Orders</Link>
+                                    </li>
+                                    <li className={pathname === '/admin/panel/orders-history' && styles.activeLink}>
+                                        <Image className={styles.img} src={ordersImg} alt="admin/panel/orders-history" /><Link onClick={cancel}  href={"./orders-history"} className={styles.link}>History</Link>
                                     </li>
                                     <li className={pathname === '/admin/panel/offer' && styles.activeLink}>
-                                        <Image className={styles.img} src={offerImg} alt="admin/panel/offer" /><Link href={"./offer"} className={styles.link}> Offer</Link>
+                                        <Image className={styles.img} src={offerImg} alt="admin/panel/offer" /><Link onClick={cancel} href={"./offer"} className={styles.link}> Offer</Link>
                                     </li>
-                                    <li className={pathname === '/admin/panel/logout' && styles.activeLink}>
-                                        <Image className={styles.img} src={logoutImg} alt="admin/panel/logout" /> <Link href={"./logout"} className={styles.link}> Logout</Link>
+                                    <li>
+                                        <Image className={styles.img} src={logoutImg} alt="admin/panel/logout" /> <Link href={"/"} className={styles.link}> Logout</Link>
                                     </li>
 
                                 </ul>

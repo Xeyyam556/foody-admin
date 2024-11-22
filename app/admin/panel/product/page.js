@@ -11,7 +11,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Slider from "react-slick";
 import axios from 'axios';
 import cloudImg from "../image/Vector (13).png";
-
+import spinGif from "../image/spin2.gif"
 export default function Product() {
     const [products, setProducts] = useState([]);
     const [showEdit, setShowEdit] = useState(false);
@@ -27,7 +27,7 @@ export default function Product() {
     const priceRef = useRef();
     const [selectedRestaurant, setSelectedRestaurant] = useState('');
     const [filteredProducts, setFilteredProducts] = useState([]);
-
+    const [spin,setSpin]=useState(true)
     useEffect(() => {
         if (selectedRestaurant === '') {
             setFilteredProducts(products);
@@ -35,17 +35,22 @@ export default function Product() {
             setFilteredProducts(products.filter(product => product.rest_id === selectedRestaurant));
         }
     }, [selectedRestaurant, products]);
+    
 
     const handleRestaurantChange = (e) => {
         setSelectedRestaurant(e.target.value);
     };
+    
+    
 
     const fetchRestaurants = async () => {
         const response = await axios.get("/api/restuarants");
         setGetRestaurant(response.data.result.data);
+        setSpin(false)
     };
 
     useEffect(() => {
+        setSpin(false)
         fetchRestaurants();
     }, []);
 
@@ -121,16 +126,26 @@ export default function Product() {
     };
 
     const fetchProduct = async () => {
+        setSpin(true)
+
         const response = await axios.get("/api/products");
         setProducts(response.data.result.data);
+        setSpin(false); 
     };
 
     useEffect(() => {
+        
         fetchProduct();
     }, []);
 
     return (
         <>
+         {spin && (
+                <div className={styles.spinnerContainer} >
+                    <Image  className={styles.spinner} src={spinGif} alt="Loading..." width={400} height={400} />
+                </div>
+            )}
+            
             {showDelete && (
                 <>
                     <div className={styles.backfon} onClick={closeModal}></div>
@@ -200,6 +215,7 @@ export default function Product() {
                 </>
             )}
             <section>
+           
                 <div className={styles.countainer}>
                     <div className={styles.head}>
                         <h1 className={styles.mLAuto}>Products</h1>
@@ -208,7 +224,7 @@ export default function Product() {
                             value={selectedRestaurant}
                             onChange={handleRestaurantChange}
                         >
-                            <option value=''>All Restaurants</option>
+                            <option value='' className={styles.options}>All Restaurants</option>
                             {getRestaurant.map((restaurant) => (
                                 <option key={restaurant.id} value={restaurant.id}>
                                     {restaurant.name}
@@ -226,7 +242,7 @@ export default function Product() {
                                     <h1>{product.name}</h1>
                                     <p className={styles.name}>{product.description}</p>
                                     <div className={styles.foodAbout}>
-                                        <p className={styles.MLAuto}>{product.price}</p>
+                                        <p className={styles.MLAuto}>${product.price}</p>
                                         <button className={styles.MLAuto} onClick={() => showEditPage(product.id)}>
                                             <Image src={editImg} alt="edit" />
                                         </button>

@@ -1,19 +1,19 @@
-.countainer{
+.container{
     display: flex;
     gap: 30px;
     flex-wrap: wrap;
-    margin-left: 0px;
+    margin-left:0px;
 }
 .order{
     background-color: rgb(39, 40, 60);
-    width: 472px;
+    width: 470px;
     height: 472px;
     border-radius: 10px;
     margin-top: 16px;
     margin-left: 16px;
 }
 .totalSalary{
-    width: 791px;
+    width: 776px;
     height: 472px;
     margin-top: 16px;
     background-color: rgb(39, 40, 60);
@@ -21,14 +21,14 @@
 }
 .assignedRisk{
     margin-left: 15px;
-    width: 645px;
+    width: 640px;
     height: 472px;
     margin-top: 16px;
     background-color: rgb(39, 40, 60);
     border-radius: 10px;
 }
 .assignedActionItems{
-    width: 620px;
+    width: 610px;
     height: 472px;
     margin-top: 16px;
     background-color: rgb(39, 40, 60);
@@ -87,7 +87,41 @@ height: 380px;
    margin-top: 20px;
 }
 
+
+.spinnerContainer {
+    position: absolute;
+    margin-left: 400px;
+    margin-top: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ekranın tamamını kaplaması için */
+}
+
+.spinner {
+    width: 200px; /* Orta boyut için */
+    height: 200px;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
 @media (max-width:768px) {
+    .spinner{
+        width: 100px;
+        height: 100px;
+    }
+    .spinnerContainer {
+        position: absolute;
+        margin-left:150px;
+    }
     .chartOffer, .chartAssignedAction, .chartTotalSalary, .chartAssignedRIsk{
         margin-left:10px ;
         margin-right: 10px;

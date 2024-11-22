@@ -6,7 +6,7 @@
     align-items: center;
     position:relative;
     gap: 27px;
-    width: 98%;
+    width: 1265px;
     height: 73px;
     margin-left: 28px;
     margin-top: 16px;
@@ -238,8 +238,8 @@ height: 100px;
 
 .box {
     background-color: rgb(255, 255, 255);
-    width: 270px;
-    height: 83px;
+    width: 290px;
+    height: 103px;
     display: flex;
     gap: 30px; 
     align-items: center;
@@ -247,7 +247,22 @@ height: 100px;
     margin-top: 10px; 
     flex-shrink: 0; /* Box'ların yan-yana durması üçün bu xassəni əlavə edin */
 }
+.name::-webkit-scrollbar {
+  width: 4px; /* Scroll bar genişliği */
+  height: 4px;
+}
+.name::-webkit-scrollbar-track {
+  background: white; /* Scroll bar arka plan rengi */
+}
 
+.name::-webkit-scrollbar-thumb {
+  background-color: gray; /* Scroll bar rengi */
+  border-radius: 4px; /* Scroll barın kenarları yuvarlatmak için */
+}
+
+.name::-webkit-scrollbar-thumb:hover {
+  background: rgb(192, 53, 162); /* Hover durumunda scroll bar rengi */
+}
 
 .box .img{
     margin-left: 25px;
@@ -270,12 +285,12 @@ height: 100px;
 .info h1{
 width: 80px;
 height: 30;
-overflow-y: auto;
+overflow: auto;
 }
 .info h2{
     width: 80px;
     height: 30;
-    overflow-y: auto;
+    overflow: auto;
     }
 
 .backfon{
@@ -524,8 +539,38 @@ overflow-y: auto;
     width: 100%;
   height: 1070px;
   }
-  @media (max-width: 768px) {
+  .spinnerContainer {
+    position: absolute;
+    margin-left: 400px;
+    margin-top: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ekranın tamamını kaplaması için */
+}
 
+.spinner {
+    width: 200px; /* Orta boyut için */
+    height: 200px;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+  @media (max-width: 768px) {
+    .spinner{
+      width: 100px;
+      height: 100px;
+  }
+  .spinnerContainer {
+      position: absolute;
+      margin-left:150px;
+  }
     .select{
       width: 450px;
       margin-left: 1px;
@@ -603,5 +648,28 @@ overflow-y: auto;
     }
     .box img{
       margin-left: 30px;
+    }
+    .productCountainerEdit{
+      width: 100%;
+      height: 1354px;
+    }
+    .addImage{
+      flex-direction: column;
+      gap: 30px;
+    }
+    .productWritingEdit{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .uploadImgEdit{
+      width: 93%;
+    }
+    .addWritingEdit{
+      flex-direction: column;
+      gap: 0px;
+    }
+    .formDivEdit{
+      width: 93%;
     }
   }

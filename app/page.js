@@ -53,7 +53,7 @@ export default function Login() {
                     setAccessToken(response.data.user.access_token)
                     setRefreshToken(response.data.user.refresh_token)
                     setTimeout(() => {
-                        router.push('/admin/panel')
+                        router.push('/admin/panel/dashboard')
                         setAlertt(false);
                     }, 2000);
                     setError({

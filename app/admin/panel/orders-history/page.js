@@ -1,7 +1,7 @@
 "use client"
-import styles from "./order.module.css"
-import { useCallback, useEffect, useState } from "react";
 
+import { useCallback, useEffect, useState } from "react";
+import styles from "./orders-history.module.css"
 import rmvImg from "../image/Vector (12).png";
 import eyesImg from "../image/Vector (14).png"
 import Image from 'next/image';
@@ -23,7 +23,7 @@ export default function Orders() {
 
     const fetchOrder = async () => {
         setSpin(true); // Set loading to true before making the API call
-        const response = await axios.get('/api/order', {
+        const response = await axios.get('/api/order/history', {
             headers: {
                 Authorization: `Bearer ${authorization}`
             }
@@ -91,49 +91,11 @@ export default function Orders() {
                     <Image className={styles.spinner} src={spinGif} alt="Loading..." width={400} height={400} />
                 </div>
             )}
-            {showDelete && (
-                <>
-                    <div className={styles.backfon} onClick={closeModal}></div>
-                    <div className={styles.countainerDiv}>
-                        <div className={styles.deleteDiv}>
-                            <h1>Are you sure it’s deleted?</h1>
-                            <p>Attention! If you delete this product, it will not come back...</p>
-                            <div className={styles.deleteBtn}>
-                                <button onClick={cancel}>Cancel</button>
-                                <button onClick={deleteOrder}>Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </>
-            )}
-
+         
             <section className={styles.orderSection}>
                 <div className={styles.backfon} onClick={closeModal} style={{ display: isOpen ? 'block' : 'none' }}></div>
 
-                <div style={{ display: isOpen ? 'block' : 'none' }} className={styles.allInfoDiv}>
-                    <table className={styles.allInfoTable}>
-                        <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Price $</th>
-                                <th>Count</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {selectedOrderProducts.map((product, index) => (
-                                <tr key={index}>
-                                    <td><Image alt="sos" width={40} height={40} src={product.img_url} /></td>
-                                    <td>{product.name}</td>
-                                    <td>{product.price}</td>
-                                    <td>{product.count}</td>
-                                    <td>{product.amount}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+             
 
                 <div className={styles.head}>
                     <h1>Orders</h1>
@@ -151,7 +113,6 @@ export default function Orders() {
                                         <th>Amount</th>
                                         <th>Payment Method</th>
                                         <th>Contact</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -164,14 +125,7 @@ export default function Orders() {
                                             <td className={styles.td}>{orders.amount}</td>
                                             <td className={styles.td}>{orders.payment_method === 0 ? 'Cash On Delivery' : 'Pay at the door by credit card'}</td>
                                             <td className={styles.td}>{orders.contact}</td>
-                                            <td>
-                                                <button onClick={() => allInfo(orders.id)}>
-                                                    <Image src={eyesImg} alt="View Details" width={20} height={20} />
-                                                </button>
-                                                <button onClick={() => showRmvPage(orders.id)}>
-                                                    <Image src={rmvImg} alt="Remove" width={20} height={20} />
-                                                </button>
-                                            </td>
+                                         
                                         </tr>
                                     ))}
                                 </tbody>

@@ -6,6 +6,7 @@ import { useState, useRef, useEffect, } from "react"
 import editImg from "../image/Vector (11).png";
 import rmvImg from "../image/Vector (12).png";
 import axios from 'axios';
+import spinGif from '../image/spin2.gif'
 
 export default function Category() {
     const [showCategory, setShowCategory] = useState(false)
@@ -16,7 +17,7 @@ export default function Category() {
     const [categorys, setCategorys] = useState([])
     const [editCategory, setEditCategory] = useState([])
     const [editCategoryId, setEditCategoryId] = useState([])
-
+    const [spin,setSpin]=useState(true)
     const inputName = useRef();
     const inputDes = useRef();
     const addName = useRef()
@@ -62,6 +63,8 @@ export default function Category() {
 
 
     const close = () => {
+        setAddImg("")
+
         setShowCategory(false)
     }
     const handleImageChange = (e) => {
@@ -87,6 +90,7 @@ export default function Category() {
     }
 
     const closeModal = () => {
+        setAddImg("")
         setShowEdit(false)
         setShowCategory(false)
         // document.body.style.overflow = "auto"
@@ -99,7 +103,7 @@ export default function Category() {
         const response = await axios.get(`/api/category/${editCategoryId}`)
 
         setEditCategory(response.data.result.data)
-         
+         setSpin(false)
 
 
     }
@@ -118,8 +122,8 @@ export default function Category() {
         setShowEdit(!showEdit)
         await fetchEdit()
         // console.log(editCategory, "salam")
-        inputName.current.value = editCategory.name || "";
-        inputDes.current.value = editCategory.slug || "";
+            // inputName.current.value = editCategory.name || "";
+            // inputDes.current.value = editCategory.slug || "";n
         setAddImg(editCategory.img_url || "");
 
         // document.body.style.overflow = "hidden"
@@ -135,6 +139,7 @@ export default function Category() {
         const response = await axios.get("/api/category")
         setCategorys(response.data.result.data)
         // console.log(response)
+        setSpin(false)
 
     }
     useEffect(() => {
@@ -142,6 +147,11 @@ export default function Category() {
     }, [])
     return (
         <>
+          {spin && (
+                <div className={styles.spinnerContainer} >
+                    <Image  className={styles.spinner} src={spinGif} alt="Loading..." width={400} height={400} />
+                </div>
+            )}
             {showDelete && (
                 <>
 
@@ -167,10 +177,10 @@ export default function Category() {
                 <>
                     <div className={styles.backfon} onClick={closeModal}></div>
 
-                    <div className={`${styles.productCountainer} ${showEdit ? styles.open : styles.close}}`}>
+                    <div className={`${styles.productCountainerEdit} ${showEdit ? styles.open : styles.close}}`}>
                         <div className={styles.imgCountainer}>
                             <button className={styles.productCLoseBtn} onClick={closeModal}>X</button>
-                            <h1>Edit product</h1>
+                            <h1 className={styles.h11}>Edit product</h1>
                             <div className={styles.addImage}>
                                 <div className={styles.productWriting}>
 
@@ -178,7 +188,7 @@ export default function Category() {
                                     {addImg ? <Image src={addImg} width={130} height={130} alt='img' /> : null}
                                 </div>
 
-                                <div className={styles.addDiv} >
+                                <div className={styles.addDivEdit} >
                                     <input ref={fileInputRef}
                                         style={{ display: 'none' }} type='file' onChange={handleImageChange}></input>
                                     <div className={styles.uploadImg}>
